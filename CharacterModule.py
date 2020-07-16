@@ -1,16 +1,17 @@
 from GameClassOBJ import GameOBJ
 
-#Главный персонаж
+#Класс описывающий главного персонажа
 class MainCharacter(GameOBJ):
-    def __init__(self, ID, TYPE, name, hp, exp, lvl, damage, isEffect, LeftANIM, RightANIM):
-        GameOBJ.__init__(self, ID, TYPE)
+    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, name, hp, exp, lvl, damage, isEffect, LeftANIM, RightANIM):
+        GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
         self.__name = name
         self.__HP = hp
-        slef.__LVL = lvl
+        self.__LVL = lvl
         self.__damage = damage
         self.__isEffect = isEffect
         self.__LeftANIM = LeftANIM
         self.__RightANIM = RightANIM
+
         
 #Инкапсуляция
     def getName(self):

@@ -1,8 +1,8 @@
 from NPCModule import NPC
 
 class Frendly(NPC):
-    def __init__(self,ID, TYPE, name, hp, protection, imunitet, interaction, isFrendly, Dialog, Scene):
-        NPC.__init__(self, ID, TYPE, name, hp, protection, imunitet, interaction, isFrendly)
+    def __init__(self,ID, TYPE, MainList, x, y, MainPick,name, hp, protection, imunitet, interaction, isFrendly, Dialog = 0, Scene = 0, LeftANIM, RightANIM):
+        NPC.__init__(self, ID, TYPE, MainList, x, y, MainPick, name, hp, protection, imunitet, interaction, isFrendly, LeftANIM, RightANIM)
         self.__ListDialog = Dialog
         self.__ListScene = Scene
 

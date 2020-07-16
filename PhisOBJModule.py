@@ -2,14 +2,14 @@ from GameClassOBJ import GameOBJ
 
 #Физические объекты
 class PhisOBJ(GameOBJ):
-    def __init__(self, ID, TYPE, typeOBJ, destruction, hp, isPickUp, SecondEffect):
-        GameOBJ.__init__(self, ID, TYPE)
+    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, typeOBJ, destruction, hp, isPickUp, SecondEffect):
+        GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
         self.__typeOBJ = typeOBJ
         self.__destr = destruction
         self.__HP = hp
         self.__isPickUp = isPickUp
         self.__SecondEffect = SecondEffect
-
+       
 #Инкапсуляция
     def getTypeOBJ(self):
         return self.__typeOBJ

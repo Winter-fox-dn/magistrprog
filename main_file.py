@@ -1,50 +1,108 @@
-
+#Импорт класса отрисовывающего окна
 from Window_Dialog import pygame
 import Window_Dialog
-
+#Импорт класса ГГ
+import CharacterModule
+#Импорт класса НПС
+import NPCModule
+#Импорт класса для чтения тхт сценариев
 import readfile
+
 pygame.init()
 
+#Экран
 Width = 900
 Height = 700
 
+#Анимация
+motion = 'Stop'
+STOP = 'Stop'
+animCount = 0
+LEFT = 'left'
+RIGHT = 'right'
+UP = 'up'
+DOWN = 'down'
 
-
+#Дисплей
 sc = pygame.display.set_mode((Width, Height))
+
+#Заполнение sс
 sc.fill((0, 0, 0))
 
+#Анимация основная. В данном случае активируется если персонаж не двигался некоторое время.
+mnList = [pygame.image.load('sp_humans/Stay10001.png').convert_alpha(), pygame.image.load('sp_humans/Stay10002.png').convert_alpha(), pygame.image.load('sp_humans/Stay10003.png').convert_alpha(),
+        pygame.image.load('sp_humans/Stay10004.png').convert_alpha(), pygame.image.load('sp_humans/Stay10005.png').convert_alpha(),
+    pygame.image.load('sp_humans/Stay10006.png').convert_alpha(), pygame.image.load('sp_humans/Stay10007.png').convert_alpha()]
 
+#Основная картинка персонажа. Отображается во время остановки. Я хз как правильно сформулировать...
+mnPick = pygame.image.load('sp_humans/Stay10000.png').convert_alpha()
 
-#sprt = ('slav_1.jpg','slav_2.jpg','slav_3.jpg','slav_4.jpg','slav_5.jpg','slav_6.jpg')
-sprt = ('slav_2.jpg','slav.png')
+#Анимация движения влево.
+LAnim = [pygame.image.load('sp_humans/Walk0000.png').convert_alpha(), pygame.image.load('sp_humans/Walk0001.png').convert_alpha(),
+         pygame.image.load('sp_humans/Walk0002.png').convert_alpha(), pygame.image.load('sp_humans/Walk0003.png').convert_alpha(),
+    pygame.image.load('sp_humans/Walk0004.png').convert_alpha(), pygame.image.load('sp_humans/Walk0005.png').convert_alpha(),
+    pygame.image.load('sp_humans/Walk0006.png').convert_alpha(), pygame.image.load('sp_humans/Walk0007.png').convert_alpha()]
 
+#Анимация движения вправо
+RAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0001.png').convert_alpha(),
+         pygame.image.load('sp_humans/WalkL0002.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0003.png').convert_alpha(),
+    pygame.image.load('sp_humans/WalkL0004.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0005.png').convert_alpha(),
+    pygame.image.load('sp_humans/WalkL0006.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0007.png').convert_alpha()]
+
+#Объект класса MainCharacter. Игровой персонаж
+Persona = CharacterModule.MainCharacter(1,'CHARACTER', mnList,0,0, mnPick, 'PlayerName',100,100,0,100,False, LAnim, RAnim)  
+#Объект класса NPC. Не игровой персонаж на фоне
+NPC = NPCModule.NPC(2,'NPC', mnList, 100, 10, mnPick, 'NameNPC', 100,100,'Fire',100,False,LAnim,RAnim)
+
+sList = [Persona, NPC]
 sprt_surf = []
 
-slavia = pygame.sprite.Group()
-#Рисунки и их координаты
-for i in range(len(sprt)):
-    sq = Window_Dialog.Pictures('sp_humans/'+sprt[i], 600, 700, slavia)
-    sq.moveLeft();
-    sq.moveLeft();
-    sprt_surf.append(sq)
+########################################################
+#!!!!!!!!!!!!КОД ПОДЛЕЖАЩИЙ РЕПРЕСИЯМ!!!!!!!!!!!!#
+########################################################
 
+#sprt = ('slav_1.jpg','slav_2.jpg','slav_3.jpg','slav_4.jpg','slav_5.jpg','slav_6.jpg')
+#sprt = ('slav_2.jpg','slav.png'
+
+#slavia = pygame.sprite.Group()
+
+#Рисунки и их координаты
+
+##for i in range(len(sprt)):
+##    sq = Window_Dialog.Pictures('sp_humans/'+sprt[i], 600, 700, slavia)
+##    sq.moveLeft()
+##    sq.moveLeft()
+##    sprt_surf.append(sq)
+##
+
+########################################################
+#!!!!!!!!!!!!КОНЕЦ РАСТРЕЛЬНОГО СПИСКА!!!!!!!!!!!!#
+########################################################
 
 #Задний фон
 bacpick = Window_Dialog.Pictures('sp_world/back_standart.jpg', Width, Height)
-print(bacpick.path)
+#print(bacpick.path)
 
 #отрисовка окна с рисунками
-window = Window_Dialog.DialogWindow(Width, Height, bacpick, sprt_surf)
-sc.blit(window.drawDialogWind1(),(0,0))
+window = Window_Dialog.GameWindow(Width, Height, bacpick, sprt_surf)
+sc.blit(window.drawGameWind(),(0,0))
 
-#        
-r = readfile.TextRead('proba').readScene()
-r.reverse()
-print(r)
+########################################################
+#!!!!!!!!!!!!КОД ПОДЛЕЖАЩИЙ РЕПРЕСИЯМ!!!!!!!!!!!!#
+########################################################
 
-font_title = pygame.font.SysFont(None, 20)
+###        
+##r = readfile.TextRead('proba').readScene()
+##r.reverse()
+##print(r)
+##
+##font_title = pygame.font.SysFont(None, 20)
+##
+##font_text = pygame.font.SysFont(None, 20)
 
-font_text = pygame.font.SysFont(None, 20)
+########################################################
+#!!!!!!!!!!!!КОНЕЦ РАСТРЕЛЬНОГО СПИСКА!!!!!!!!!!!!#
+########################################################
 
 
 while 1:
@@ -52,10 +110,36 @@ while 1:
 
         if i.type == pygame.QUIT:
             exit()
-            
-        elif i.type == pygame.MOUSEBUTTONDOWN:
+        #Команды на клавиши
+        elif i.type == pygame.KEYDOWN:
+            if i.key == pygame.K_LEFT:
+                motion = LEFT
+            elif i.key == pygame.K_RIGHT:
+                motion = RIGHT
+            elif i.key == pygame.K_UP:
+                motion = UP
+            elif i.key == pygame.K_DOWN:
+                motion = DOWN
+        else:
+            motion = STOP
+        
+        if i.type == pygame.MOUSEBUTTONDOWN:
             if i.button == 1:
                pass
+
+        #Инструкции по передвижению
+        if motion == LEFT:
+            sList[0].setX(sList[0].getX()+10)
+            print(sList[0].getX())
+            
+        elif motion == RIGHT:
+            pass
+        elif motion == UP:
+            pass
+        elif motion == DOWN:
+            pass
+        elif motion == STOP:
+            pass
  
     pygame.display.update()
  

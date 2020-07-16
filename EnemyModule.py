@@ -2,8 +2,8 @@ from NPCModule import NPC
 
 #Класс враждебных Неигровых персонажей
 class Enemy(NPC):
-    def __init__(self,ID, TYPE, name, hp, protection, imunitet, interaction, isFrendly, EXP, boss, lvl, damage):
-        NPC.__init__(self, ID, TYPE, name, hp, protection, imunitet, interaction, isFrendly)
+    def __init__(self,ID, TYPE, MainList, x, y, MainPick, name, hp, protection, imunitet, interaction, isFrendly, EXP, boss, lvl, damage, LeftANIM, RightANIM):
+        NPC.__init__(self, ID, TYPE, name, hp, protection, imunitet, interaction, isFrendly, LeftANIM, RightANIM)
         self.__EXP = EXP
         self.__boss = boss
         self.__LVL = lvl

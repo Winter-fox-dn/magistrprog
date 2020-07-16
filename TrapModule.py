@@ -2,8 +2,8 @@ from GameClassOBJ import GameOBJ
 
 #Класс *бог простит* трапов
 class Trap(GameOBJ):
-    def __init__(self, ID, TYPE, trapType, DPS, Effects):
-        GameOBJ.__init__(self, ID, TYPE)
+    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, trapType, DPS, Effects):
+        GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
         self.__trapType = trapType
         self.__DPS = DPS
         self.__effects = Effects

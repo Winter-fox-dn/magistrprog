@@ -1,9 +1,9 @@
 from GameClassOBJ import GameOBJ 
 
-#Класс Не игровых персонажей
+#Класс Неигровых персонажей
 class NPC(GameOBJ):
-    def __init__(self, ID, TYPE, name, hp, protection, imunitet, interaction, isFrendly, LeftANIM, RightANIM):
-       GameOBJ.__init__(self, ID, TYPE)
+    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, name, hp, protection, imunitet, interaction, isFrendly, LeftANIM, RightANIM):
+       GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
        self.__Name = name
        self.__HP = hp
        self.__Protect = protection

@@ -36,7 +36,7 @@ mnList = [pygame.image.load('sp_humans/Stay10001.png').convert_alpha(), pygame.i
 
 #Основная картинка персонажа. Отображается во время остановки. Я хз как правильно сформулировать...
 mnPick = pygame.image.load('sp_humans/Stay10000.png').convert_alpha()
-
+mnPick1 = pygame.image.load('sp_humans/Stay10000.png').convert_alpha()
 #Анимация движения влево.
 LAnim = [pygame.image.load('sp_humans/Walk0000.png').convert_alpha(), pygame.image.load('sp_humans/Walk0001.png').convert_alpha(),
          pygame.image.load('sp_humans/Walk0002.png').convert_alpha(), pygame.image.load('sp_humans/Walk0003.png').convert_alpha(),
@@ -50,10 +50,9 @@ RAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.ima
     pygame.image.load('sp_humans/WalkL0006.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0007.png').convert_alpha()]
 
 #Объект класса MainCharacter. Игровой персонаж
-Persona = CharacterModule.MainCharacter(1,'CHARACTER', mnList,0,0, mnPick, 'PlayerName',100,100,0,100,False, LAnim, RAnim)  
+Persona = CharacterModule.MainCharacter('ID', 'TYPE', mnList, 200, 200, mnPick, 0, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
 #Объект класса NPC. Не игровой персонаж на фоне
-NPC = NPCModule.NPC(2,'NPC', mnList, 100, 10, mnPick, 'NameNPC', 100,100,'Fire',100,False,LAnim,RAnim)
-
+NPC = NPCModule.NPC('ID', 'TYPE', mnList, 0, 0, mnPick, 0, 'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)
 sList = [Persona, NPC]
 sprt_surf = []
 
@@ -84,7 +83,8 @@ bacpick = Window_Dialog.Pictures('sp_world/back_standart.jpg', Width, Height)
 #print(bacpick.path)
 
 #отрисовка окна с рисунками
-window = Window_Dialog.GameWindow(Width, Height, bacpick, sprt_surf)
+window = Window_Dialog.GameWindow(Width, Height, bacpick, sprt_surf,sList)
+
 sc.blit(window.drawGameWind(),(0,0))
 
 ########################################################

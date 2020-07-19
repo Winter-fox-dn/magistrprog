@@ -93,6 +93,6 @@ class GameWindow:
         if self.OBJList == None:
             pass
         else:
-            #self.back.blit(self.OBJ
-            pass
+            for i in self.OBJList:
+                self.back.blit(i.getMainPICK(), (i.getX(), i.getY()))
         return self.back

@@ -55,3 +55,16 @@ class MainCharacter(GameOBJ):
 
     def setRightANIM(self, RightANIM):
         self.__RightANIM = RightANIM
+        
+#Передвижение персонажа
+    def moveLEFT(self):
+        self.setX(self.getX()-10)
+        
+    def moveRIGHT(self):
+        self.setX(self.getX()+10)
+
+    def moveUP(self):
+        self.setY(self.getY()+10)
+        
+    def moveDOWN(self):
+        self.setY(self.getY()-10)

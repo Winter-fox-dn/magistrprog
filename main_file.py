@@ -15,13 +15,14 @@ Width = 900
 Height = 700
 
 #Анимация
-motion = 'Stop'
-STOP = 'Stop'
+motion = 'STOP'
+STOP = 'STOP'
 animCount = 0
-LEFT = 'left'
-RIGHT = 'right'
-UP = 'up'
-DOWN = 'down'
+LEFT = 'LEFT'
+RIGHT = 'RIGHT'
+UP = 'UP'
+DOWN = 'DOWN'
+
 
 #Дисплей
 sc = pygame.display.set_mode((Width, Height))
@@ -38,52 +39,27 @@ mnList = [pygame.image.load('sp_humans/Stay10001.png').convert_alpha(), pygame.i
 mnPick = pygame.image.load('sp_humans/Stay10000.png').convert_alpha()
 mnPick1 = pygame.image.load('sp_humans/Stay10000.png').convert_alpha()
 #Анимация движения влево.
-LAnim = [pygame.image.load('sp_humans/Walk0000.png').convert_alpha(), pygame.image.load('sp_humans/Walk0001.png').convert_alpha(),
+RAnim = [pygame.image.load('sp_humans/Walk0000.png').convert_alpha(), pygame.image.load('sp_humans/Walk0001.png').convert_alpha(),
          pygame.image.load('sp_humans/Walk0002.png').convert_alpha(), pygame.image.load('sp_humans/Walk0003.png').convert_alpha(),
     pygame.image.load('sp_humans/Walk0004.png').convert_alpha(), pygame.image.load('sp_humans/Walk0005.png').convert_alpha(),
     pygame.image.load('sp_humans/Walk0006.png').convert_alpha(), pygame.image.load('sp_humans/Walk0007.png').convert_alpha()]
-
 #Анимация движения вправо
-RAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0001.png').convert_alpha(),
+LAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0001.png').convert_alpha(),
          pygame.image.load('sp_humans/WalkL0002.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0003.png').convert_alpha(),
     pygame.image.load('sp_humans/WalkL0004.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0005.png').convert_alpha(),
     pygame.image.load('sp_humans/WalkL0006.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0007.png').convert_alpha()]
 
+background = pygame.image.load('sp_world/back_standart.jpg').convert_alpha()
+
 #Объект класса MainCharacter. Игровой персонаж
-Persona = CharacterModule.MainCharacter('ID', 'TYPE', mnList, 200, 200, mnPick, 0, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
+Persona = CharacterModule.MainCharacter('ID', 'TYPE', mnList, 200, 200, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
+
 #Объект класса NPC. Не игровой персонаж на фоне
-NPC = NPCModule.NPC('ID', 'TYPE', mnList, 0, 0, mnPick, 0, 'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)
+NPC = NPCModule.NPC('ID', 'TYPE', mnList, 0, 0, mnPick, 0, STOP,'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)
 sList = [Persona, NPC]
-sprt_surf = []
-
-########################################################
-#!!!!!!!!!!!!КОД ПОДЛЕЖАЩИЙ РЕПРЕСИЯМ!!!!!!!!!!!!#
-########################################################
-
-#sprt = ('slav_1.jpg','slav_2.jpg','slav_3.jpg','slav_4.jpg','slav_5.jpg','slav_6.jpg')
-#sprt = ('slav_2.jpg','slav.png'
-
-#slavia = pygame.sprite.Group()
-
-#Рисунки и их координаты
-
-##for i in range(len(sprt)):
-##    sq = Window_Dialog.Pictures('sp_humans/'+sprt[i], 600, 700, slavia)
-##    sq.moveLeft()
-##    sq.moveLeft()
-##    sprt_surf.append(sq)
-##
-
-########################################################
-#!!!!!!!!!!!!КОНЕЦ РАСТРЕЛЬНОГО СПИСКА!!!!!!!!!!!!#
-########################################################
-
-#Задний фон
-bacpick = Window_Dialog.Pictures('sp_world/back_standart.jpg', Width, Height)
-#print(bacpick.path)
 
 #отрисовка окна с рисунками
-window = Window_Dialog.GameWindow(Width, Height, bacpick, sprt_surf,sList)
+window = Window_Dialog.GameWindow(Width, Height, 'back_standart.jpg', sList)
 
 sc.blit(window.drawGameWind(),(0,0))
 
@@ -114,32 +90,52 @@ while 1:
         elif i.type == pygame.KEYDOWN:
             if i.key == pygame.K_LEFT:
                 motion = LEFT
+                sList[0].setMotion(LEFT)
+                
             elif i.key == pygame.K_RIGHT:
                 motion = RIGHT
+                sList[0].setMotion(RIGHT)
+                
             elif i.key == pygame.K_UP:
                 motion = UP
+                sList[0].setMotion(UP)
+                
             elif i.key == pygame.K_DOWN:
                 motion = DOWN
+                sList[0].setMotion(DOWN)
+                
         else:
             motion = STOP
+            sList[0].setMotion(STOP)
         
         if i.type == pygame.MOUSEBUTTONDOWN:
             if i.button == 1:
                pass
 
-        #Инструкции по передвижению
-        if motion == LEFT:
-            sList[0].setX(sList[0].getX()+10)
-            print(sList[0].getX())
-            
-        elif motion == RIGHT:
-            pass
-        elif motion == UP:
-            pass
-        elif motion == DOWN:
-            pass
-        elif motion == STOP:
-            pass
+    #Инструкции по передвижению
+    if motion == LEFT:
+        sc.blit(window.updateWindow(),(0,0))
+        sc.blit(window.drawGameWind(),(0,0))
+        sList[0].setX(sList[0].getX()-10)
+        
+    elif motion == RIGHT:
+        sc.blit(window.updateWindow(),(0,0))
+        sc.blit(window.drawGameWind(),(0,0))
+        sList[0].setX(sList[0].getX()+10)
+        
+    elif motion == UP:
+        sc.blit(window.updateWindow(),(0,0))
+        sc.blit(window.drawGameWind(),(0,0))
+        sList[0].setY(sList[0].getY()-10)
+        
+    elif motion == DOWN:
+        sc.blit(window.updateWindow(),(0,0))
+        sc.blit(window.drawGameWind(),(0,0))
+        sList[0].setY(sList[0].getY()+10)
+        
+    elif motion == STOP:
+        sc.blit(window.updateWindow(),(0,0))
+        sc.blit(window.drawGameWind(),(0,0))
  
     pygame.display.update()
  

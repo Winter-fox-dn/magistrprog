@@ -2,7 +2,7 @@ from GameClassOBJ import GameOBJ
 
 #Класс описывающий главного персонажа
 class MainCharacter(GameOBJ):
-    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, name, hp, exp, lvl, damage, isEffect, LeftANIM, RightANIM):
+    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount,Motion, name, hp, exp, lvl, damage, isEffect, LeftANIM, RightANIM):
         GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
         self.__name = name
         self.__HP = hp
@@ -11,6 +11,7 @@ class MainCharacter(GameOBJ):
         self.__isEffect = isEffect
         self.__LeftANIM = LeftANIM
         self.__RightANIM = RightANIM
+        self.__Motion = Motion
 
         
 #Инкапсуляция
@@ -55,7 +56,12 @@ class MainCharacter(GameOBJ):
 
     def setRightANIM(self, RightANIM):
         self.__RightANIM = RightANIM
-        
+
+    def getMotion(self):
+        return self.__Motion
+    
+    def setMotion(self, motion):
+        self.__Motion = motion
 #Передвижение персонажа
     def moveLEFT(self):
         self.setX(self.getX()-10)

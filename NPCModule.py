@@ -68,16 +68,3 @@ class NPC(GameOBJ):
     
     def setMotion(self, motion):
         self.__Motion = motion
-
-    #Передвижение нпс
-    def moveLEFT(self):
-        self.setX(self.getX()-10)
-        
-    def moveRIGHT(self):
-        self.setX(self.getX()+10)
-
-    def moveUP(self):
-        self.setY(self.getY()+10)
-        
-    def moveDOWN(self):
-        self.setY(self.getY()-10)

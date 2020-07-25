@@ -24,14 +24,23 @@ class GameWindow:
         self.back.fill((255,255,255))
 
         self.back.blit(self.backpic, (0,0))
+        #Сетка
+        pygame.draw.line(self.back, (255,255,255),[0,100],[200, 200])    
         
         pygame.display.update()
+
+    def drawGrid(self):
+        #Сетка
+        for i in range(0, self.width, 10):
+            pygame.draw.line(self.back, (255,255,255),[0,i],[self.width, i])
+            pygame.draw.line(self.back, (255,255,255),[i,0],[i, self.height])
+
 
     def updateWindow(self):
         #self.back.fill((255,255,255))
 
         self.back.blit(self.backpic, (0,0))
-
+        self.drawGrid()
         #pygame.display.update()
 
         return self.back

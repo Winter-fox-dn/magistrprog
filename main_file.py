@@ -54,7 +54,7 @@ LAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.ima
 background = pygame.image.load('sp_world/back_standart.jpg').convert_alpha()
 
 #Объект класса MainCharacter. Игровой персонаж
-Persona = CharacterModule.MainCharacter('ID', 'TYPE', mnList, 200, 200, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
+Persona = CharacterModule.MainCharacter('ID', 'TYPE', mnList, 700, 300, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
 
 #Объект класса NPC. Не игровой персонаж на фоне
 NPC = NPCModule.NPC('ID', 'NPC', mnList, -100, 0, mnPick, 0, STOP,'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)
@@ -65,10 +65,8 @@ window = Window_Dialog.GameWindow(Width, Height, 'back_standart.jpg', sList)
 
 sc.blit(window.drawGameWind(),(0,0))
 
-
 #Тест передвижения
 def moveNPC():
-
     #выбор направления
     if sList[1].getX() == -100 :
         sList[1].setMotion(RIGHT)
@@ -79,11 +77,7 @@ def moveNPC():
         sList[1].setX(sList[1].getX()+10)
     if sList[1].getMotion() == LEFT:
         sList[1].setX(sList[1].getX()-10)
-##    if sList[1].getMotion() == LEFT:
-##        sList[1].setX(sList[0].getX()-10)
-##    if sList[1].getMotion() == RIGHT:
-##        sList[1].setX(sList[0].getX()+10)
-    
+        
 ########################################################
 #!!!!!!!!!!!!КОД ПОДЛЕЖАЩИЙ РЕПРЕСИЯМ!!!!!!!!!!!!#
 ########################################################
@@ -132,10 +126,10 @@ while 1:
         if i.type == pygame.MOUSEBUTTONDOWN:
             if i.button == 1:
                pass
-
-    moveNPC()
+            
+    
     #Инструкции по передвижению
-        
+    moveNPC()
     if motion == LEFT:
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
@@ -160,6 +154,6 @@ while 1:
         sc.blit(window.drawGameWind(),(0,0))
  
     pygame.display.update()
- 
+    
     pygame.time.delay(30)
 

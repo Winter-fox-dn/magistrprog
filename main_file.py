@@ -2,7 +2,7 @@
 from Window_Dialog import pygame
 import Window_Dialog
 #Импорт класса ГГ
-import CharacterModule
+import GameCharacterModule
 #Импорт класса НПС
 import NPCModule
 #Импорт класса для чтения тхт сценариев
@@ -54,7 +54,7 @@ LAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.ima
 background = pygame.image.load('sp_world/back_standart.jpg').convert_alpha()
 
 #Объект класса MainCharacter. Игровой персонаж
-Persona = CharacterModule.MainCharacter('ID', 'TYPE', mnList, 700, 300, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
+Persona = GameCharacterModule.MainCharacter('ID', 'TYPE', mnList, 700, 300, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
 
 #Объект класса NPC. Не игровой персонаж на фоне
 NPC = NPCModule.NPC('ID', 'NPC', mnList, -100, 0, mnPick, 0, STOP,'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)

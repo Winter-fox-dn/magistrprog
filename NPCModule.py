@@ -1,32 +1,15 @@
-from GameClassOBJ import GameOBJ 
+from CharacterModule import Character 
 
 #Класс Неигровых персонажей
-class NPC(GameOBJ):
+class NPC(Character):
     def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, Motion, name, hp, protection, imunitet, interaction, isFrendly, LeftANIM, RightANIM):
-       GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
-       self.__Name = name
-       self.__HP = hp
+       Character.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, Motion, name, hp, LeftANIM, RightANIM)
        self.__Protect = protection
        self.__Imunitet = imunitet
        self.__Interaction = interaction
        self.__IsFrendly = isFrendly
-       self.__LeftANIM = LeftANIM
-       self.__RightANIM = RightANIM
-       self.__Motion = Motion 
-
-    #Инкапсуляция
-    def getName(self):
-        return self.__Name
-
-    def setName(self, name):
-        self.__Name = name
-    
-    def getHP(self):
-        return self.__HP
-
-    def setHP(self, hp):
-        self.__HP = hp
-    
+       
+    #Инкапсуляция    
     def getProtect(self):
         return self.__Protect
 
@@ -50,21 +33,3 @@ class NPC(GameOBJ):
 
     def setIsFrendly(self, frn):
         self.__IsFrendly = frn
-
-    def getLeftANIM(self):
-        return self.__LeftANIM
-
-    def setLeftANIM(self, LeftANIM):
-        self.__LeftANIM = LeftANIM
-
-    def getRightANIM(self):
-        return self.__RightANIM
-
-    def setRightANIM(self, RightANIM):
-        self.__RightANIM = RightANIM
-
-    def getMotion(self):
-        return self.__Motion
-    
-    def setMotion(self, motion):
-        self.__Motion = motion

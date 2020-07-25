@@ -1,10 +1,10 @@
 class GameOBJ:
-    def __init__(self, ID, TYPE, MainList = 0, x = 0, y = 0, MainPick = 0, AnimCount = 0):
+    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount):
         self.__ID = ID
         self.__TYPE = TYPE
-        self.__X = x
-        self.__Y = y
         self.__MainLIST = MainList
+        self.__X = x
+        self.__Y = y        
         self.__MainPICK = MainPick
         self.__AnimCount = AnimCount
 
@@ -39,13 +39,13 @@ class GameOBJ:
         self.__MainLIST = MainLIST
 
     def getMainPICK(self):
-        return self.MainPICK
+        return self.__MainPICK
 
     def setMainPICK(self, MainPICK):
-        self.MainPICK = MainPICK
+        self.__MainPICK = MainPICK
 
     def getAnimCount(self):
-        return self__AnimCount
+        return self.__AnimCount
 
     def setAnimCount(self, num):
         self.__AnimCount = num

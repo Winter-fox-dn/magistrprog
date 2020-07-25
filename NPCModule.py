@@ -2,7 +2,7 @@ from GameClassOBJ import GameOBJ
 
 #Класс Неигровых персонажей
 class NPC(GameOBJ):
-    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, name, hp, protection, imunitet, interaction, isFrendly, LeftANIM, RightANIM):
+    def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, Motion, name, hp, protection, imunitet, interaction, isFrendly, LeftANIM, RightANIM):
        GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
        self.__Name = name
        self.__HP = hp
@@ -12,6 +12,7 @@ class NPC(GameOBJ):
        self.__IsFrendly = isFrendly
        self.__LeftANIM = LeftANIM
        self.__RightANIM = RightANIM
+       self.__Motion = Motion 
 
     #Инкапсуляция
     def getName(self):
@@ -61,3 +62,9 @@ class NPC(GameOBJ):
 
     def setRightANIM(self, RightANIM):
         self.__RightANIM = RightANIM
+
+    def getMotion(self):
+        return self.__Motion
+    
+    def setMotion(self, motion):
+        self.__Motion = motion

@@ -1,5 +1,7 @@
 import pygame 
 from array import *
+import numpy as np
+
 STOP = 'STOP'
 LEFT = 'LEFT'
 RIGHT = 'RIGHT'
@@ -8,11 +10,57 @@ DOWN = 'DOWN'
 
 
 class GameSurface:
-    def __init__(self,Width, Height, Backp,):
+    def __init__(self,Width, Height, Backp):
         self.width = Width
         self.height = Height
-        self.backpic = pygame.image.load('sp_world/'+Backp).convert_alpha()
+        self.backpic = pygame.image.load('sp_world/'+Backp).convert_alpha() 
+        k2 = int()#
+        k3 = int()#
         
+        #Определениие размерров массива и его создание.
+        #Если ячейка меньше или равна четверти то она не учитыается.
+        #Прорисовка сетки 
+        for i in range(0, self.width, 30):
+            pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
+            if (self.width - i) <= 7.5:
+                print(self.width - i)
+            else:
+                k2 +=1
+            k +=1
+        for i in range(0,self.height, 30):
+            pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
+            if (self.height - i) <= 7.5:
+                print(self.height - i)
+            else:
+                k3 +=1
+            k1 +=1
+            
+        #Создание квадратика 30Х30
+        surf1 = pygame.Surface((30, 30))
+        surf1.fill((220, 200, 0))  # желтая
+
+        rect = pygame.Rect((30, 30, 0, 0))
+        self.backpic.blit(surf1, rect)
+
+        #массив 
+        a = np.zeros((k3,k2))
+
+        print(a)
+        #Отладка
+        print("Столбцы: ",k2 ," Строки: ",k3)
+
+
+    def showGrid():
+        k = int()#временно для откладки 
+        k1 = int()##временно для откладки
+        for i in range(0, self.width, 30):
+            pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
+            k +=1
+        for i in range(0,self.height, 30):
+            pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
+            k1 +=1
+        print("Вертикальных линий: ",k ," Горизонтальных линий: ",k1)
+
 
 class GameWindow:
     def __init__(self, Width, Height, Backp, ObjList = None):
@@ -20,22 +68,7 @@ class GameWindow:
         self.height = Height
         self.backpic = pygame.image.load('sp_world/'+Backp).convert_alpha()
         #self.backpic = pygame.transform.scale(self.backpic, (10000,10000))
-        k = int()
-        a = array('i',[1,2])
-        print(a)
-        for i in range(0, self.width, 30):
-            pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
-            k += 1
-            pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
-        surf1 = pygame.Surface((30, 30))
-        surf1.fill((220, 200, 0))  # желтая
-
-        rect = pygame.Rect((30, 30, 0, 0))
-        self.backpic.blit(surf1, rect)
         
-        
-        print(i)
-
         self.OBJList = ObjList        
         #Установка заднего фона
         self.back = pygame.Surface((self.width, self.height))
@@ -53,10 +86,6 @@ class GameWindow:
         #pygame.draw.line(self.back, (255,255,255),[0,100],[200, 200])    
         
         pygame.display.update()
-
-    def drawGrid(self):
-        #Сетка
-        pass
 
     def updateWindow(self):
         #self.back.fill((255,255,255))
@@ -87,7 +116,7 @@ class GameWindow:
 
     def drawGameWind(self):
         #Сетка
-        self.drawGrid()
+        #self.drawGrid()
         surf = pygame.Surface((70,140))
         surf.fill((255,0,0))
         #Прорисовка объектов на экране 

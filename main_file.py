@@ -11,8 +11,8 @@ import readfile
 pygame.init()
 
 #Экран
-Width = 900
-Height = 700
+Width = 127
+Height = 335
 
 #Анимация
 motion = 'STOP'
@@ -52,10 +52,12 @@ LAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.ima
     pygame.image.load('sp_humans/WalkL0006.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0007.png').convert_alpha()]
 
 background = pygame.image.load('sp_world/back_standart.jpg').convert_alpha()
+backgr = Window_Dialog.GameSurface(Width, Height, 'back_standart.jpg')
 
 #Объект класса MainCharacter. Игровой персонаж
 Persona = GameCharacterModule.MainCharacter('ID', 'TYPE', mnList, 700, 300, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
 
+print("Персонаж -> X:",Persona.getX()," Y: ", Persona.getY()) 
 #Объект класса NPC. Не игровой персонаж на фоне
 NPC = NPCModule.NPC('ID', 'NPC', mnList, -100, 0, mnPick, 0, STOP,'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)
 sList = [Persona, NPC]
@@ -94,8 +96,6 @@ def moveNPC():
 ########################################################
 #!!!!!!!!!!!!КОНЕЦ РАСТРЕЛЬНОГО СПИСКА!!!!!!!!!!!!#
 ########################################################
-
-
 while 1:
     for i in pygame.event.get():
 
@@ -126,8 +126,7 @@ while 1:
         if i.type == pygame.MOUSEBUTTONDOWN:
             if i.button == 1:
                pass
-            
-    
+        
     #Инструкции по передвижению
     moveNPC()
     if motion == LEFT:

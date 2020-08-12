@@ -9,31 +9,42 @@ UP = 'UP'
 DOWN = 'DOWN'
 
 
+##################################################################
+##################################################################
+##################################################################
+        #ДОБАВИТЬ ГЕТЕРОВ И СЕТЕРОВ
+
+##################################################################
+##################################################################
+##################################################################
+
 class GameSurface:
     def __init__(self,Width, Height, Backp):
         self.width = Width
         self.height = Height
-        self.backpic = pygame.image.load('sp_world/'+Backp).convert_alpha() 
+        self.backpic = pygame.image.load('sp_world/'+Backp).convert_alpha()
+        self.backpic = pygame.transform.scale(self.backpic, (self.width, self.height))
+        self.x = 0
+        self.y = 0
         k2 = int()#
         k3 = int()#
-        
         #Определениие размерров массива и его создание.
         #Если ячейка меньше или равна четверти то она не учитыается.
         #Прорисовка сетки 
         for i in range(0, self.width, 30):
-            pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
+            #pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
             if (self.width - i) <= 7.5:
                 print(self.width - i)
             else:
                 k2 +=1
-            k +=1
+            #k +=1
         for i in range(0,self.height, 30):
-            pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
+            #pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
             if (self.height - i) <= 7.5:
                 print(self.height - i)
             else:
                 k3 +=1
-            k1 +=1
+            #k1 +=1
             
         #Создание квадратика 30Х30
         surf1 = pygame.Surface((30, 30))
@@ -61,15 +72,28 @@ class GameSurface:
             k1 +=1
         print("Вертикальных линий: ",k ," Горизонтальных линий: ",k1)
 
+##################################################################
+##################################################################
+##################################################################
+        #ДОБАВИТЬ ГЕТЕРОВ И СЕТЕРОВ
 
+##################################################################
+##################################################################
+##################################################################
+        
 class GameWindow:
-    def __init__(self, Width, Height, Backp, ObjList = None):
+    def __init__(self,Width, Height, Back, ObjList = None):
         self.width = Width
         self.height = Height
-        self.backpic = pygame.image.load('sp_world/'+Backp).convert_alpha()
         #self.backpic = pygame.transform.scale(self.backpic, (10000,10000))
-        
-        self.OBJList = ObjList        
+        self.Back = Back
+        self.OBJList = ObjList
+
+        self.x1 = 0
+        self.x2 = 600
+        self.y1 = 0
+        self.y2 = 600
+
         #Установка заднего фона
         self.back = pygame.Surface((self.width, self.height))
         #Установка диалогового окна
@@ -81,17 +105,19 @@ class GameWindow:
         
         self.back.fill((255,255,255))
 
-        self.back.blit(self.backpic, (0,0))
-        #Сетка
-        #pygame.draw.line(self.back, (255,255,255),[0,100],[200, 200])    
+        self.back.blit(self.Back.backpic, (self.Back.x,self.Back.y))        
         
         pygame.display.update()
 
     def updateWindow(self):
-        #self.back.fill((255,255,255))
+        self.back.fill((255,255,255))
 
-        self.back.blit(self.backpic, (0,0))
+        self.back.blit(self.Back.backpic, (self.Back.x,self.Back.y))
         
+        pygame.draw.line(self.back, (0,0,255),[self.x1,0],[self.x1, self.height])
+        pygame.draw.line(self.back, (0,0,255),[self.x2,0],[self.x2, self.height])
+        pygame.draw.line(self.back, (255,0,0),[0,self.y1],[self.width, self.y1])
+        pygame.draw.line(self.back, (255,0,0),[0,self.y2],[self.width, self.y2])
         #self.drawGrid()
         #pygame.display.update()
 
@@ -115,11 +141,11 @@ class GameWindow:
         return self.back
 
     def drawGameWind(self):
-        #Сетка
-        #self.drawGrid()
+        
         surf = pygame.Surface((70,140))
         surf.fill((255,0,0))
         #Прорисовка объектов на экране 
+
         if self.OBJList == None:
             pass
         else:
@@ -131,7 +157,7 @@ class GameWindow:
                 if i.getMotion() == LEFT:
                     if i.getAnimCount() <= len(LAnim)-1:
                         
-                        self.back.blit(surf, (i.getX()+90,i.getY()+120))                                  
+                        #self.back.blit(surf, (i.getX()+90,i.getY()+120))                                  
                         self.back.blit(LAnim[i.getAnimCount()], (i.getX(),i.getY()))
                         i.setAnimCount(i.getAnimCount()+1)
                     else:
@@ -141,7 +167,7 @@ class GameWindow:
                     
                 if i.getMotion() == RIGHT:
                     if i.getAnimCount() <= len(LAnim)-1:
-                        self.back.blit(surf, (i.getX()+90,i.getY()+120))
+                        #self.back.blit(surf, (i.getX()+90,i.getY()+120))
                         self.back.blit(RAnim[i.getAnimCount()], (i.getX(),i.getY()))
                         i.setAnimCount(i.getAnimCount()+1)
                     else:
@@ -150,7 +176,7 @@ class GameWindow:
                     
                 if i.getMotion() == UP:
                     if i.getAnimCount() <= len(LAnim)-1:
-                        self.back.blit(surf, (i.getX()+90,i.getY()+120))
+                        #self.back.blit(surf, (i.getX()+90,i.getY()+120))
                         self.back.blit(LAnim[i.getAnimCount()], (i.getX(),i.getY()))
                         i.setAnimCount(i.getAnimCount()+1)
                     else:
@@ -159,7 +185,7 @@ class GameWindow:
                     
                 if i.getMotion() == DOWN:
                     if i.getAnimCount() <= len(LAnim)-1:
-                        self.back.blit(surf, (i.getX()+90,i.getY()+120))
+                        #self.back.blit(surf, (i.getX()+90,i.getY()+120))
                         self.back.blit(RAnim[i.getAnimCount()], (i.getX(),i.getY()))
                         i.setAnimCount(i.getAnimCount()+1)
                     else:
@@ -167,7 +193,7 @@ class GameWindow:
                         self.back.blit(RAnim[i.getAnimCount()], (i.getX(),i.getY()))
 
                 if i.getMotion() == STOP:
-                    self.back.blit(surf, (i.getX()+90,i.getY()+120))
+                    #self.back.blit(surf, (i.getX()+90,i.getY()+120))
                     self.back.blit(i.getMainPICK(), (i.getX(), i.getY()))
                 
         return self.back

@@ -8,40 +8,30 @@ RIGHT = 'RIGHT'
 UP = 'UP'
 DOWN = 'DOWN'
 
-
-##################################################################
-##################################################################
-##################################################################
-        #ДОБАВИТЬ ГЕТЕРОВ И СЕТЕРОВ
-
-##################################################################
-##################################################################
-##################################################################
-
 class GameSurface:
     def __init__(self,Width, Height, Backp):
-        self.width = Width
-        self.height = Height
+        self.__width = Width
+        self.__height = Height
         self.backpic = pygame.image.load('sp_world/'+Backp).convert_alpha()
-        self.backpic = pygame.transform.scale(self.backpic, (self.width, self.height))
-        self.x = 0
-        self.y = 0
+        self.backpic = pygame.transform.scale(self.backpic, (self.__width, self.__height))
+        self.__X = 0
+        self.__Y = 0
         k2 = int()#
         k3 = int()#
         #Определениие размерров массива и его создание.
         #Если ячейка меньше или равна четверти то она не учитыается.
         #Прорисовка сетки 
-        for i in range(0, self.width, 30):
+        for i in range(0, self.__width, 30):
             #pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
-            if (self.width - i) <= 7.5:
-                print(self.width - i)
+            if (self.__width - i) <= 7.5:
+                print(self.__width - i)
             else:
                 k2 +=1
             #k +=1
-        for i in range(0,self.height, 30):
+        for i in range(0,self.__height, 30):
             #pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
-            if (self.height - i) <= 7.5:
-                print(self.height - i)
+            if (self.__height - i) <= 7.5:
+                print(self.__height - i)
             else:
                 k3 +=1
             #k1 +=1
@@ -64,40 +54,50 @@ class GameSurface:
     def showGrid():
         k = int()#временно для откладки 
         k1 = int()##временно для откладки
-        for i in range(0, self.width, 30):
-            pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
+        for i in range(0, self.__width, 30):
+            pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.__height])
             k +=1
-        for i in range(0,self.height, 30):
-            pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
+        for i in range(0,self.__height, 30):
+            pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.__width, i])
             k1 +=1
         print("Вертикальных линий: ",k ," Горизонтальных линий: ",k1)
 
-##################################################################
-##################################################################
-##################################################################
-        #ДОБАВИТЬ ГЕТЕРОВ И СЕТЕРОВ
+    #Инкапсуляция
+    def setX(self, x):
+        self.__X = x
 
-##################################################################
-##################################################################
-##################################################################
-        
+    def getX(self):
+        return self.__X
+    
+    def setY(self, y):
+        self.__Y = y
+
+    def getY(self):
+        return self.__Y
+
+    def getWidth(self):
+        return self.__width
+
+    def getHeight(self):
+        return self.__height
+       
 class GameWindow:
     def __init__(self,Width, Height, Back, ObjList = None):
-        self.width = Width
-        self.height = Height
+        self.__width = Width
+        self.__height = Height
         #self.backpic = pygame.transform.scale(self.backpic, (10000,10000))
         self.Back = Back
         self.OBJList = ObjList
 
-        self.x1 = 0
-        self.x2 = 600
-        self.y1 = 0
-        self.y2 = 600
+        self.__x1 = 0
+        self.__x2 = 600
+        self.__y1 = 0
+        self.__y2 = 600
 
         #Установка заднего фона
-        self.back = pygame.Surface((self.width, self.height))
+        self.back = pygame.Surface((self.__width, self.__height))
         #Установка диалогового окна
-        self.text_dialog = pygame.Surface((self.width,self.height))
+        self.text_dialog = pygame.Surface((self.__width,self.__height))
         #Заполнение диалогового окна
         self.text_dialog.fill((160,0,100))
         #Установка прозрачности
@@ -105,19 +105,50 @@ class GameWindow:
         
         self.back.fill((255,255,255))
 
-        self.back.blit(self.Back.backpic, (self.Back.x,self.Back.y))        
+        self.back.blit(self.Back.backpic, (self.Back.getX(),self.Back.getY()))        
         
         pygame.display.update()
+
+    #Инкапсуляция
+    def setX1(self, x):
+        self.__x1 = x
+
+    def getX1(self):
+        return self.__x1
+
+    def setX2(self, x):
+        self.__x2 = x
+
+    def getX2(self):
+        return self.__x2
+    
+    def setY1(self, y):
+        self.__y1 = y
+
+    def getY1(self):
+        return self.__y1
+    
+    def setY2(self, y):
+        self.__y2 = y
+
+    def getY2(self):
+        return self.__y2
+    
+    def getWidth(self):
+        return self.__width
+
+    def getHeight(self):
+        return self.__height
 
     def updateWindow(self):
         self.back.fill((255,255,255))
 
-        self.back.blit(self.Back.backpic, (self.Back.x,self.Back.y))
+        self.back.blit(self.Back.backpic, (self.Back.getX(),self.Back.getY()))
         
-        pygame.draw.line(self.back, (0,0,255),[self.x1,0],[self.x1, self.height])
-        pygame.draw.line(self.back, (0,0,255),[self.x2,0],[self.x2, self.height])
-        pygame.draw.line(self.back, (255,0,0),[0,self.y1],[self.width, self.y1])
-        pygame.draw.line(self.back, (255,0,0),[0,self.y2],[self.width, self.y2])
+        pygame.draw.line(self.back, (0,0,255),[self.__x1,0],[self.__x1, self.__height])
+        pygame.draw.line(self.back, (0,0,255),[self.__x2,0],[self.__x2, self.__height])
+        pygame.draw.line(self.back, (255,0,0),[0,self.__y1],[self.__width, self.__y1])
+        pygame.draw.line(self.back, (255,0,0),[0,self.__y2],[self.__width, self.__y2])
         #self.drawGrid()
         #pygame.display.update()
 

@@ -3,8 +3,6 @@ from GameClassOBJ import GameOBJ
 class Character(GameOBJ):
     def __init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount, Motion, name, hp,LeftANIM, RightANIM):
         GameOBJ.__init__(self, ID, TYPE, MainList, x, y, MainPick, AnimCount)
-        self.X_win = x
-        self.Y_win = y
         self.__Name = name
         self.__HP = hp
         self.__LeftANIM = LeftANIM

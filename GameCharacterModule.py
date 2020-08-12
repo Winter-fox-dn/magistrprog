@@ -7,6 +7,8 @@ class MainCharacter(Character):
         self.__LVL = lvl
         self.__damage = damage
         self.__isEffect = isEffect
+        self.__X_win = x
+        self.__Y_win = y
         
         
 #Инкапсуляция
@@ -27,3 +29,15 @@ class MainCharacter(Character):
 
     def setIsEffect(self, isef):
         self.__isEffect = isef
+
+    def setXwin(self, x):
+        self.__X_win = x
+
+    def getXwin(self):
+        return self.__X_win
+    
+    def setYwin(self, x):
+        self.__Y_win = x
+
+    def getYwin(self):
+        return self.__Y_win

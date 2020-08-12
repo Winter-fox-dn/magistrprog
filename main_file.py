@@ -23,7 +23,6 @@ RIGHT = 'RIGHT'
 UP = 'UP'
 DOWN = 'DOWN'
 
-
 #Дисплей
 sc = pygame.display.set_mode((Width, Height))
 
@@ -59,29 +58,26 @@ Persona = GameCharacterModule.MainCharacter('ID', 'TYPE', mnList, 100, 100, mnPi
 
 print("Персонаж -> X:",Persona.getX()," Y: ", Persona.getY()) 
 #Объект класса NPC. Не игровой персонаж на фоне
-NPC = NPCModule.NPC('ID', 'NPC', mnList, backgr.x-100, backgr.y, mnPick, 0, STOP,'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)
+NPC = NPCModule.NPC('ID', 'NPC', mnList, backgr.getX()-100, backgr.getY(), mnPick, 0, STOP,'name', 'hp', 'protection', 'imunitet', 'interaction', False, LAnim, RAnim)
 sList = [Persona, NPC]
 
 #отрисовка окна с рисунками
 window = Window_Dialog.GameWindow(Width, Height, backgr, sList)
 
-#ДОБАВИТЬ И ОБНОВИТЬ ГЕТЕРЫ И СЕТЕРЫ
-
-###################################################
 sc.blit(window.drawGameWind(),(0,0))
-###################################################
 
 #Тест передвижения
 def moveNPC():
     #выбор направления
-    if sList[1].getX() <= window.Back.x-100:
+    if sList[1].getX() <= window.Back.getX()-100:
         sList[1].setMotion(RIGHT)
-    if sList[1].getX() >= window.Back.x+window.Back.width-150:
-        print(window.Back.width-150)
+        
+    if sList[1].getX() >= window.Back.getX()+window.Back.getWidth()-150:
         sList[1].setMotion(LEFT)
     #Передвижение нпс
     if sList[1].getMotion() == RIGHT:
         sList[1].setX(sList[1].getX()+10)
+        
     if sList[1].getMotion() == LEFT:
         sList[1].setX(sList[1].getX()-10)
         
@@ -113,25 +109,25 @@ while 1:
             if i.key == pygame.K_LEFT:
                 motion = LEFT
                 sList[0].setMotion(LEFT)
-                if sList[0].X_win <= window.x1-150:
-                    motion = STOP
+##                if sList[0].getXwin() <= window.getX1()-150:
+##                    motion = STOP
             elif i.key == pygame.K_RIGHT:
                 motion = RIGHT
                 sList[0].setMotion(RIGHT)
-                if sList[0].X_win >= window.x2-150:
-                    motion = STOP
+##                if sList[0].getXwin() >= window.getX2()-150:
+##                    motion = STOP
                 
             elif i.key == pygame.K_UP:
                 motion = UP
                 sList[0].setMotion(UP)
-                if sList[0].Y_win <= window.y1-150:
-                    motion = STOP
+##                if sList[0].getYwin() <= window.getY1()-150:
+##                    motion = STOP
                 
             elif i.key == pygame.K_DOWN:
                 motion = DOWN
                 sList[0].setMotion(DOWN)
-                if sList[0].Y_win >= window.y2-150:
-                    motion = STOP
+##                if sList[0].getYwin() >= window.getY2()-150:
+##                    motion = STOP
                 
         else:
             motion = STOP
@@ -143,64 +139,51 @@ while 1:
         
     #Инструкции по передвижению
     moveNPC()
-    ##ДОБАВИТЬ ГЕТЕРОВ И СЕТЕРОВ
-    if motion == LEFT and Persona.X_win != window.x1-150:
+    if motion == LEFT and Persona.getXwin() != window.getX1()-150:
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
+
         sList[0].setX(sList[0].getX()-10)
-        #################################
-        sList[0].X_win -= 10
-        #################################
-        #print('X',sList[0].X_win)
-    elif motion == LEFT and Persona.X_win <= window.x1-150:
-        window.Back.x+=10
+        sList[0].setXwin(sList[0].getXwin()-10)
+         
+    elif motion == LEFT and Persona.getXwin() <= window.getX1()-150:
+        window.Back.setX(window.Back.getX()+10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
 
-        #################################
-    elif motion == RIGHT and Persona.X_win != window.x2-150:
-        #################################
-        print(RIGHT)
+    elif motion == RIGHT and Persona.getXwin() != window.getX2()-150:
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
-        #################################
+        
         sList[0].setX(sList[0].getX()+10)
-        #################################
-        sList[0].X_win += 10
-        #print('X',sList[0].X_win)
-    elif motion == RIGHT and Persona.X_win >= window.x2-150:
-        window.Back.x-=10
+        sList[0].setXwin(sList[0].getXwin()+10)
+        
+    elif motion == RIGHT and Persona.getXwin() >= window.getX2()-150:
+        window.Back.setX(window.Back.getX()-10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
 
-        #################################
-    elif motion == UP and Persona.Y_win != window.y1-150:
-        #################################
+    elif motion == UP and Persona.getYwin() != window.getY1()-150:
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
+        
         sList[0].setY(sList[0].getY()-10)
-        #################################
-        sList[0].Y_win -= 10
-        #################################
-        #print('Y:',sList[0].Y_win)
+        sList[0].setYwin(sList[0].getYwin() - 10)
         
-    elif motion == UP and Persona.Y_win >= window.y1-150:
-        window.Back.y+=10
+    elif motion == UP and Persona.getYwin() >= window.getY1()-150:
+        window.Back.setY(window.Back.getY()+10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
         
-    #################################
-    elif motion == DOWN and Persona.Y_win != window.y2-250:
-        #################################
+    elif motion == DOWN and Persona.getYwin() != window.getY2()-250:
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
+
         sList[0].setY(sList[0].getY()+10)
-        #################################
-        sList[0].Y_win += 10
-        #################################
-        
-    elif motion == DOWN and Persona.Y_win <= window.y2-250:
-        window.Back.y-=10
+        sList[0].setYwin(sList[0].getYwin()+10)
+                
+    elif motion == DOWN and Persona.getYwin() <= window.getY2()-250:
+        window.Back.setY(window.Back.getY()-10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
     

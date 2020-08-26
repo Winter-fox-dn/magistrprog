@@ -89,6 +89,10 @@ class GameWindow:
         self.Back = Back
         self.OBJList = ObjList
 
+        #в конце карты?
+        self.isEnd = False
+
+        #Границы передвижения, для ограничения передвижения по экрану 
         self.__x1 = 0
         self.__x2 = 600
         self.__y1 = 0
@@ -144,7 +148,7 @@ class GameWindow:
         self.back.fill((255,255,255))
 
         self.back.blit(self.Back.backpic, (self.Back.getX(),self.Back.getY()))
-        
+        #Прорисовка границ передвижения персонажа 
         pygame.draw.line(self.back, (0,0,255),[self.__x1,0],[self.__x1, self.__height])
         pygame.draw.line(self.back, (0,0,255),[self.__x2,0],[self.__x2, self.__height])
         pygame.draw.line(self.back, (255,0,0),[0,self.__y1],[self.__width, self.__y1])

@@ -66,6 +66,12 @@ window = Window_Dialog.GameWindow(Width, Height, backgr, sList)
 
 sc.blit(window.drawGameWind(),(0,0))
 
+#Ограничение по переходу линии
+def CrossTheLine():
+    if window.Back.getX() >= window.getX1() and motion == RIGHT:
+        print(window.Back.getX())
+    else:
+        window.Back.setX(window.Back.getX()+10)
 #Тест передвижения
 def moveNPC():
     #выбор направления
@@ -139,19 +145,26 @@ while 1:
         
     #Инструкции по передвижению
     moveNPC()
-    if motion == LEFT and Persona.getXwin() != window.getX1()-150:
+    if motion == LEFT and Persona.getXwin() != window.getX1()-100:
+        #Обновление окна и передвижение персонажей
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
 
         sList[0].setX(sList[0].getX()-10)
         sList[0].setXwin(sList[0].getXwin()-10)
          
-    elif motion == LEFT and Persona.getXwin() <= window.getX1()-150:
-        window.Back.setX(window.Back.getX()+10)
+    elif motion == LEFT and Persona.getXwin() <= window.getX1()-100:
+        #Передвижение заднего фона в заданных рамках
+        #Ограничение по полю
+        if window.Back.getX() >= window.getX1():
+            print(window.Back.getX())
+        else:
+            window.Back.setX(window.Back.getX()+10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
 
     elif motion == RIGHT and Persona.getXwin() != window.getX2()-150:
+        #Обновление окна и передвижение персонажей
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
         
@@ -159,7 +172,14 @@ while 1:
         sList[0].setXwin(sList[0].getXwin()+10)
         
     elif motion == RIGHT and Persona.getXwin() >= window.getX2()-150:
-        window.Back.setX(window.Back.getX()-10)
+        #Передвижение заднего фона в заданных рамках
+        #Определение правой крайней рамки идет через схему (Ширина карты + вторая граница передвижения + (ширина окна - вторая граница передвижения))         
+        if window.Back.getX() <= window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()):
+            print(window.Back.getWidth()*(-1))
+            sList[0].setX(sList[0].getX()+10)
+            sList[0].setXwin(sList[0].getXwin()+10)
+        else:
+            window.Back.setX(window.Back.getX()-10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
 
@@ -171,11 +191,13 @@ while 1:
         sList[0].setYwin(sList[0].getYwin() - 10)
         
     elif motion == UP and Persona.getYwin() >= window.getY1()-150:
+        #Передвижение заднего фона в заданных рамках
         window.Back.setY(window.Back.getY()+10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
         
     elif motion == DOWN and Persona.getYwin() != window.getY2()-250:
+        #Обновление окна и передвижение персонажей
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
 
@@ -183,6 +205,7 @@ while 1:
         sList[0].setYwin(sList[0].getYwin()+10)
                 
     elif motion == DOWN and Persona.getYwin() <= window.getY2()-250:
+        #Передвижение заднего фона в заданных рамках
         window.Back.setY(window.Back.getY()-10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))

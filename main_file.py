@@ -51,10 +51,10 @@ LAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.ima
     pygame.image.load('sp_humans/WalkL0006.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0007.png').convert_alpha()]
 
 
-backgr = Window_Dialog.GameSurface(1000, 700, 'backfon.jpg')
+backgr = Window_Dialog.GameSurface(2000, 2600, 'backfon.jpg')
 
 #Объект класса MainCharacter. Игровой персонаж
-Persona = GameCharacterModule.MainCharacter('ID', 'TYPE', mnList, 100, 100, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
+Persona = GameCharacterModule.MainCharacter('ID', 'TYPE', mnList, 400, 300, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  
 
 print("Персонаж -> X:",Persona.getX()," Y: ", Persona.getY()) 
 #Объект класса NPC. Не игровой персонаж на фоне
@@ -66,12 +66,6 @@ window = Window_Dialog.GameWindow(Width, Height, backgr, sList)
 
 sc.blit(window.drawGameWind(),(0,0))
 
-#Ограничение по переходу линии
-def CrossTheLine():
-    if window.Back.getX() >= window.getX1() and motion == RIGHT:
-        print(window.Back.getX())
-    else:
-        window.Back.setX(window.Back.getX()+10)
 #Тест передвижения
 def moveNPC():
     #выбор направления
@@ -156,8 +150,12 @@ while 1:
     elif motion == LEFT and Persona.getXwin() <= window.getX1()-100:
         #Передвижение заднего фона в заданных рамках
         #Ограничение по полю
-        if window.Back.getX() >= window.getX1():
-            print(window.Back.getX())
+        #Я чет выводил "формулу" определения конца окна, хотя можно просто 0 написать... Мда... Не важно......
+        #НЕ ВАЖНО window.Back.getWidth()*(-1)+window.getX1()+Width
+        #Определение правой крайней рамки идет через схему (Ширина карты + первая граница передвижения + ширина окна) 
+        if window.Back.getX() >= 0:
+            pass
+##            print(window.Back.getX(),'||',window.Back.getWidth()*(-1)+window.getX1()+Width)
         else:
             window.Back.setX(window.Back.getX()+10)
         sc.blit(window.updateWindow(),(0,0))
@@ -175,9 +173,10 @@ while 1:
         #Передвижение заднего фона в заданных рамках
         #Определение правой крайней рамки идет через схему (Ширина карты + вторая граница передвижения + (ширина окна - вторая граница передвижения))         
         if window.Back.getX() <= window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()):
-            print(window.Back.getWidth()*(-1))
-            sList[0].setX(sList[0].getX()+10)
-            sList[0].setXwin(sList[0].getXwin()+10)
+            print('==>',window.Back.getX(),'||',window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()))
+##            print(window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()))
+##            sList[0].setX(sList[0].getX()+10)
+##            sList[0].setXwin(sList[0].getXwin()+10)
         else:
             window.Back.setX(window.Back.getX()-10)
         sc.blit(window.updateWindow(),(0,0))
@@ -192,7 +191,10 @@ while 1:
         
     elif motion == UP and Persona.getYwin() >= window.getY1()-150:
         #Передвижение заднего фона в заданных рамках
-        window.Back.setY(window.Back.getY()+10)
+        if window.Back.getY() >= 0 :
+            print(window.Back.getY(),'||',window.Back.getHeight())
+        else:
+            window.Back.setY(window.Back.getY()+10)            
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
         
@@ -203,10 +205,15 @@ while 1:
 
         sList[0].setY(sList[0].getY()+10)
         sList[0].setYwin(sList[0].getYwin()+10)
+##        print(window.Back.getY(),"\_(T_T)_|",(window.Back.getHeight()-window.getY2())*(-1))
                 
     elif motion == DOWN and Persona.getYwin() <= window.getY2()-250:
         #Передвижение заднего фона в заданных рамках
-        window.Back.setY(window.Back.getY()-10)
+        
+        if window.Back.getY() <=(window.Back.getHeight()-window.getY2())*(-1)+(Height - window.getY2()):
+            print(window.Back.getY(),'||',(window.Back.getHeight()-window.getY2())*(-1)+(Height - window.getY2()))
+        else:
+            window.Back.setY(window.Back.getY()-10)
         sc.blit(window.updateWindow(),(0,0))
         sc.blit(window.drawGameWind(),(0,0))
     

@@ -51,7 +51,7 @@ LAnim =[pygame.image.load('sp_humans/WalkL0000.png').convert_alpha(), pygame.ima
     pygame.image.load('sp_humans/WalkL0006.png').convert_alpha(), pygame.image.load('sp_humans/WalkL0007.png').convert_alpha()]
 
 
-backgr = Window_Dialog.GameSurface(2000, 2600, 'backfon.jpg')
+backgr = Window_Dialog.GameSurface(1000, 1000, 'backfon.jpg')
 
 #Объект класса MainCharacter. Игровой персонаж
 Persona = GameCharacterModule.MainCharacter('ID', 'TYPE', mnList, 400, 300, mnPick, 0, STOP, 'name', 'hp', 'exp', 'lvl', 'damage', False, LAnim, RAnim)  

@@ -22,14 +22,14 @@ class GameSurface:
         #Если ячейка меньше или равна четверти то она не учитыается.
         #Прорисовка сетки 
         for i in range(0, self.__width, 30):
-            #pygame.draw.line(self.backpic, (255,255,255),[i,0],[i, self.height])
+            pygame.draw.line(self.backpic, (255,0,0),[i,0],[i, self.__height])
             if (self.__width - i) <= 7.5:
                 print(self.__width - i)
             else:
                 k2 +=1
             #k +=1
         for i in range(0,self.__height, 30):
-            #pygame.draw.line(self.backpic, (255,255,255),[0,i],[self.width, i])
+            pygame.draw.line(self.backpic, (255,0,0),[0,i],[self.__width, i])
             if (self.__height - i) <= 7.5:
                 print(self.__height - i)
             else:

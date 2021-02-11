@@ -173,7 +173,8 @@ while 1:
         #Передвижение заднего фона в заданных рамках
         #Определение правой крайней рамки идет через схему (Ширина карты + вторая граница передвижения + (ширина окна - вторая граница передвижения))         
         if window.Back.getX() <= window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()):
-            print('==>',window.Back.getX(),'||',window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()))
+            pass
+##            print('==>',window.Back.getX(),'||',window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()))
 ##            print(window.Back.getWidth()*(-1)+window.getX2()+(Width - window.getX2()))
 ##            sList[0].setX(sList[0].getX()+10)
 ##            sList[0].setXwin(sList[0].getXwin()+10)
@@ -192,7 +193,8 @@ while 1:
     elif motion == UP and Persona.getYwin() >= window.getY1()-150:
         #Передвижение заднего фона в заданных рамках
         if window.Back.getY() >= 0 :
-            print(window.Back.getY(),'||',window.Back.getHeight())
+            pass
+##            print(window.Back.getY(),'||',window.Back.getHeight())
         else:
             window.Back.setY(window.Back.getY()+10)            
         sc.blit(window.updateWindow(),(0,0))
@@ -211,7 +213,8 @@ while 1:
         #Передвижение заднего фона в заданных рамках
         
         if window.Back.getY() <=(window.Back.getHeight()-window.getY2())*(-1)+(Height - window.getY2()):
-            print(window.Back.getY(),'||',(window.Back.getHeight()-window.getY2())*(-1)+(Height - window.getY2()))
+            pass
+##            print(window.Back.getY(),'||',(window.Back.getHeight()-window.getY2())*(-1)+(Height - window.getY2()))
         else:
             window.Back.setY(window.Back.getY()-10)
         sc.blit(window.updateWindow(),(0,0))
